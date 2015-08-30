@@ -1,0 +1,41 @@
+{
+  "title": "The Archiver",
+  "name": "thearchiver",
+  "version": "0.0.1",
+  "description": "Easily Archive webpages",
+  "main": "thearchiver.js",
+  "author": "cathal mcnally",
+  "engines": {
+    "firefox": ">=38.0a1",
+    "fennec": ">=38.0a1"
+  },
+  "license": "MIT",
+  "preferences": [{
+    "name": "prefs_archiveorg",
+    "title": "Use Archive.org?",
+    "description": "Enable archival with the wayback machine",
+    "type": "bool",
+    "value": true
+    },
+    {
+    "name": "prefs_archiveis",
+    "title": "Use Archive.is?",
+    "description": "Enable archival with archive.is",
+    "type": "bool",
+    "value": true
+    },
+    {
+    "name": "prefs_webcite",
+    "title": "Use Webcite?",
+    "description": "Enable archival with webcite.com",
+    "type": "bool",
+    "value": true
+    },
+    {
+    "name": "prefs_email",
+    "title": "E-mail",
+    "description": "Required by Webcite for archival",
+    "type": "string",
+    "value": "Your E-Mail"
+    }]
+}
