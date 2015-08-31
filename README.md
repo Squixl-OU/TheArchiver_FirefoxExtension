@@ -12,7 +12,7 @@ Save all the Internets!
 
 ### Installation
 
-Download the XPI [here](https://mega.co.nz/#!yAh2Ab7T!l191P96pxI0oSeP1ByL8xEO8O7OkX5aXFSTGaDwxtug)
+Download the XPI [here](https://mega.nz/#!PZohgIRB!NzU4qZzLURqljQ5xWAYo_djBLmV6QD9AYGcBIBBotQE)
 
 To install the Firefox extension:
 
