@@ -2,7 +2,7 @@
 // uses Archive.org's Wayback Machine, Archive.is and Webcite
 // Based on my Chrome extension of the same name and purpose
 // Cathal McNally
-// 30.08.2015
+// 01.09.2015
 // ver 1.0
 
 // changelog
@@ -19,13 +19,6 @@ var archive_is = localStorage.storage.thearchiver_archiveis;
 var webcite = localStorage.storage.thearchiver_webcite;
 var email = localStorage.storage.thearchiver_email;	
 var firstRun = localStorage.storage.thearchiver_firstRun;
-
-console.log("First thearchiver_archiveorg: " + localStorage.storage.thearchiver_archiveorg);
-console.log("First thearchiver_archiveis: " + localStorage.storage.thearchiver_archiveis);
-console.log("First thearchiver_webcite: " + localStorage.storage.thearchiver_webcite);
-console.log("First thearchiver_email: " + localStorage.storage.thearchiver_email);
-console.log("First thearchiver_firstRun: " + localStorage.storage.thearchiver_firstRun);
-console.log(" ");
 
 if(firstRun == undefined){
 	// No need to check each, archive.org will do
@@ -52,36 +45,49 @@ simplePrefs.prefs_archiveis = archive_is;
 simplePrefs.prefs_webcite = webcite;
 simplePrefs.prefs_email = email;
 
-console.log("prefs_archiveorg: " + simplePrefs.prefs["prefs_archiveorg"]);
-console.log("prefs_archiveis: " + simplePrefs.prefs["prefs_archiveis"]);
-console.log("prefs_webcite: " + simplePrefs.prefs["prefs_webcite"]);
-console.log("prefs_email: " + simplePrefs.prefs["prefs_email"]);
-console.log(" ");
-
-console.log("thearchiver_archiveorg: " + localStorage.storage.thearchiver_archiveorg);
-console.log("thearchiver_archiveis: " + localStorage.storage.thearchiver_archiveis);
-console.log("thearchiver_webcite: " + localStorage.storage.thearchiver_webcite);
-console.log("thearchiver_email: " + localStorage.storage.thearchiver_email);
-console.log("thearchiver_firstRun: " + localStorage.storage.thearchiver_firstRun);
-
-
 var saveIt_context = cm.Item({
   label: "Save It!",
-  data: "http://web.archive.org/save/"
+  data: "save"
 });
 
 var checkIt_context = cm.Item({
   label: "Check It!",
-  data: "http://web.archive.org/web/"
+  data: "check"
 });
 
 var archiveIt = cm.Menu({
   label: "The Archiver",
   context: cm.PageContext(),
   image: self.data.url("images/theArchiver16.png"),
-  contentScriptFile: "./test.js",
-  onMessage: function(payload){
-  	tabs.open(archive_org); 	
+  contentScript: 'self.on("click", function(node, data){' +
+  	'  var data_out = [data, document.URL];' +
+  	'  self.postMessage(data_out);' +
+  '});',
+  onMessage: function(data){
+  	var option = data[0];
+  	var url_in = data[1];
+  	//console.log("node: "+payload);
+  	if(option=="save"){
+	  	if (archive_org){
+	  		tabs.open("http://web.archive.org/save/" + url_in);
+	 	}
+	 	if (archive_is){
+	  		tabs.open("https://archive.is/?run=1&url=" + url_in);	
+	 	}
+	 	if (webcite){
+	  		tabs.open("http://www.webcitation.org/archive?url=" + url_in + "&email=" + email); 	
+	 	}
+	}else if(option =="check"){
+		if (archive_org){
+	  		tabs.open("http://web.archive.org/web/" + url_in); 	
+	 	}
+	 	if (archive_is){
+	  		tabs.open("http://archive.is/" + url_in); 	
+	 	}
+	 	if (webcite){
+	  		tabs.open("http://www.webcitation.org/query?url=" + url_in); 	
+	 	}
+	}
   },
   items: [saveIt_context, checkIt_context]
 });
@@ -91,4 +97,9 @@ simplePrefs.on("",function(name){
 	localStorage.storage.thearchiver_archiveis = simplePrefs.prefs["prefs_archiveis"];
 	localStorage.storage.thearchiver_webcite = simplePrefs.prefs["prefs_webcite"];
 	localStorage.storage.thearchiver_email = simplePrefs.prefs["prefs_email"];
+
+	archive_org = simplePrefs.prefs["prefs_archiveorg"];
+    archive_is = simplePrefs.prefs["prefs_archiveis"];
+    webcite = simplePrefs.prefs["prefs_webcite"];
+    email = simplePrefs.prefs["prefs_email"];
 });

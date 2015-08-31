@@ -1,10 +1,12 @@
 {
   "title": "The Archiver",
   "name": "thearchiver",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Easily Archive webpages",
   "main": "thearchiver.js",
-  "author": "cathal mcnally",
+  "author": "Cathal McNally",
+  "icon": "icon.png",
+  "icon64": "icon64.png",
   "engines": {
     "firefox": ">=38.0a1",
     "fennec": ">=38.0a1"
