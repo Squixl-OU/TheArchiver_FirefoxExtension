@@ -26,3 +26,9 @@ To install the Firefox extension:
 1. Right click on a page
 2. Use the Archivers menu to Save or Check a page.
 3. Save all the Internets!
+
+### Screenshots
+
+![Firefox context menu] (http://s5.postimg.org/tj7zhunev/archiver_firefox.png)
+
+![Firefox options] (http://s5.postimg.org/63q2ci3nr/archiver_firefox_options.png)
